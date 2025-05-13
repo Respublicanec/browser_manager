@@ -1,3 +1,23 @@
+<template>
+  <div class="header">
+    <img class="logo" :src="logo" alt="" />
+    <div class="seting-blog">
+      <img class="seting-icon" :src="iconSun" alt="" />
+    </div>
+  </div>
+  <div class="filter-container">
+    <h2 class="header-filter">Expension list</h2>
+    <div class="buttons-filters">
+      <button class="button">All</button>
+      <button class="button">Active</button>
+      <button class="button">Inactive</button>
+    </div>
+  </div>
+  <div class="list-cards">
+    <CardSeting v-for="card in data" :card="card" />
+  </div>
+</template>
+
 <script setup>
 import { ref } from "vue";
 import CardSeting from "@/components/CardSeting.vue";
@@ -85,26 +105,6 @@ const data = ref([
   },
 ]);
 </script>
-
-<template>
-  <div class="header">
-    <img class="logo" :src="logo" alt="" />
-    <div class="seting-blog">
-      <img class="seting-icon" :src="iconSun" alt="" />
-    </div>
-  </div>
-  <div class="filter-container">
-    <h2 class="header-filter">Expension list</h2>
-    <div class="buttons-filters">
-      <button class="button">All</button>
-      <button class="button">Active</button>
-      <button class="button">Inactive</button>
-    </div>
-  </div>
-  <div class="list-cards">
-    <CardSeting v-for="card in data" :card="card" />
-  </div>
-</template>
 
 <style scoped>
 .header {

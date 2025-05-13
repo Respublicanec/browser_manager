@@ -1,21 +1,3 @@
-<script setup>
-import { ref } from "vue";
-
-const props = defineProps({
-  card: {
-    type: Object,
-  },
-});
-
-const emit = defineEmits(["click"]);
-
-const isActive = ref(props.card.isActive);
-
-const toggleActive = () => {
-  isActive.value = !isActive.value;
-};
-</script>
-
 <template>
   <div class="card">
     <div class="header-card">
@@ -39,6 +21,24 @@ const toggleActive = () => {
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+
+const props = defineProps({
+  card: {
+    type: Object,
+  },
+});
+
+const emit = defineEmits(["click"]);
+
+const isActive = ref(props.card.isActive);
+
+const toggleActive = () => {
+  isActive.value = !isActive.value;
+};
+</script>
 
 <style>
 .card {
@@ -64,7 +64,9 @@ const toggleActive = () => {
 .footer-buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  height: 57px;
   padding: 10px 0;
+  margin-top: auto;
 }
 .remove {
   margin-right: auto;
@@ -89,7 +91,7 @@ const toggleActive = () => {
 
 .toggle-label {
   position: absolute;
-  top: 10px;
+  top: 3px;
   right: 50px;
   width: 56px;
   height: 30px;
