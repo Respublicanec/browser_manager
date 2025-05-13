@@ -80,7 +80,7 @@ const toggleActive = () => {
   display: flex;
   position: relative;
   display: inline-block;
-  width: 60px; /* Ширина переключателя */
+  width: 60px;
 }
 
 .toggle-input {
