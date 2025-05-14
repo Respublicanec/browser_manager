@@ -1,12 +1,19 @@
 @import "./base.css";
+
 @font-face {
   font-family: "NotoSans";
   src: url("@/assets/fonts/NotoSans-VariableFont_wdth,wght.ttf")
-      format("truetype"),
-    url("@/assets/fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf")
-      format("truetype");
+    format("truetype");
   font-weight: normal;
   font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("@/assets/fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: italic;
 }
 
 #app {
@@ -24,21 +31,10 @@ a,
   padding: 3px;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    font-family: "NotoSans", sans-serif;
-    font-weight: normal;
-    width: 100%;
-    background: linear-gradient(to bottom, #060b1f, #09153d);
-    place-items: center;
-  }
-
-  #app {
-  }
+body {
+  font-family: "NotoSans", sans-serif;
+  font-weight: normal;
+  width: 100%;
+  background: linear-gradient(to bottom, #060b1f, #09153d);
+  place-items: center;
 }

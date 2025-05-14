@@ -7,7 +7,7 @@
   </div>
 
   <div class="filter-container">
-    <h2 class="filter">Extension List</h2>
+    <h2 class="filter">Extensions List</h2>
     <div class="buttons-filters">
       <button class="button">All</button>
       <button class="button">Active</button>
@@ -122,6 +122,10 @@ const data = ref([
   background-color: #1f2535;
   border-radius: 20px;
   padding: 7px;
+
+  @media (max-width: 650px) {
+    padding: 3px;
+  }
 }
 .logo {
   padding: 10px;
@@ -144,17 +148,28 @@ const data = ref([
   display: grid;
   grid-template-columns: 1fr 1fr;
   color: rgb(247, 247, 247);
-  padding: 50px 0 10px 0;
+  padding: 58px 0 2px 0;
+
+  @media (max-width: 650px) {
+    text-align: center;
+    grid-template-columns: 1fr;
+    padding: 30px 0 8px 0;
+  }
 }
 .filter {
+  font-family: "NotoSans", sans-serif; /* Обычный шрифт */
+  font-weight: bold;
   color: rgb(247, 247, 247);
-  font-size: 40px;
+  font-size: 34px;
 }
 .buttons-filters {
   display: flex;
   gap: 10px;
   justify-self: end;
   margin: 20px;
+  @media (max-width: 650px) {
+    justify-self: center;
+  }
 }
 .button {
   background-color: #2f354b;
@@ -168,5 +183,13 @@ const data = ref([
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 12px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="header">
       <img class="card-logo" :src="card.logo" alt="Логотип" />
       <div class="text-header">
-        <h2>{{ card.name }}</h2>
+        <h2 class="name">{{ card.name }}</h2>
         <span class="text">{{ card.description }} </span>
       </div>
     </div>
@@ -49,7 +49,7 @@ const switching = () => {
 .card {
   display: grid;
   gap: 52px;
-  padding: 12px 20px;
+  padding: 12px 10px 12px 20px;
   border: 1px solid #393e51;
   background-color: #1f2535;
   max-width: 600px;
@@ -66,8 +66,13 @@ const switching = () => {
   position: relative;
   color: rgb(255, 255, 255);
 }
+.name {
+  font-size: 21px;
+}
 .text {
+  font-size: 15px;
   position: absolute;
+  color: #a9adb8;
 }
 .card-logo {
   align-self: start;
@@ -83,7 +88,7 @@ const switching = () => {
 .remove {
   margin-right: auto;
   background-color: #1f2533;
-  border: 1px solid white;
+  border: 1px solid #3a4050;
   color: rgb(255, 255, 255);
   padding: 10px 15px;
   border-radius: 20px;
@@ -105,7 +110,7 @@ const switching = () => {
 .toggle-label {
   position: absolute;
   top: 10px;
-  right: 60px;
+  right: 70px;
   width: 35px;
   height: 20px;
   background-color: #525867;
