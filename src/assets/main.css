@@ -1,7 +1,16 @@
 @import "./base.css";
+@font-face {
+  font-family: "NotoSans";
+  src: url("@/assets/fonts/NotoSans-VariableFont_wdth,wght.ttf")
+      format("truetype"),
+    url("@/assets/fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf")
+      format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 #app {
-  max-width: 1280px;
+  max-width: 1236px;
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
@@ -23,8 +32,10 @@ a,
 
 @media (min-width: 1024px) {
   body {
+    font-family: "NotoSans", sans-serif;
+    font-weight: normal;
     width: 100%;
-    background-color: #1d0b5b;
+    background: linear-gradient(to bottom, #060b1f, #09153d);
     place-items: center;
   }
 
