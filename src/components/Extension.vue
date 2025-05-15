@@ -1,26 +1,32 @@
 <template>
-  <div class="card">
+  <div class="card" :class="{ white: !props.darkTheme }">
     <div class="header">
       <img class="card-logo" :src="card.logo" alt="Логотип" />
       <div class="text-header">
-        <h2 class="name">{{ card.name }}</h2>
+        <h2 class="name" :class="{ white: !props.darkTheme }">
+          {{ card.name }}
+        </h2>
         <span class="text">{{ card.description }} </span>
       </div>
     </div>
-    <div class="footer-buttons">
-      <button class="remove">Remove</button>
+
+    <div class="buttons">
+      <button class="remove" :class="{ white: !props.darkTheme }">
+        Remove
+      </button>
       <div class="toggle-container">
-        <input type="checkbox" id="toggle" class="toggle-input" />
+        <input type="checkbox" id="toggle" class="input" />
         <label
           for="toggle"
           @click="switching()"
-          class="toggle-label"
-          :class="{ 'label-red': isActive }"
+          class="label"
+          :class="{
+            'label-red': isActive && props.darkTheme,
+            'label-dark-red': isActive && !props.darkTheme,
+            'label-white': !isActive && !props.darkTheme,
+          }"
         >
-          <span
-            class="toggle-handle"
-            :class="{ 'toggle-activ': isActive }"
-          ></span>
+          <span class="handle" :class="{ active: isActive }"></span>
         </label>
       </div>
     </div>
@@ -33,6 +39,9 @@ import { ref } from "vue";
 const props = defineProps({
   card: {
     type: Object,
+  },
+  darkTheme: {
+    type: Boolean,
   },
 });
 
@@ -78,7 +87,7 @@ const switching = () => {
   align-self: start;
   padding-top: 5px;
 }
-.footer-buttons {
+.buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 57px;
@@ -88,11 +97,15 @@ const switching = () => {
 .remove {
   margin-right: auto;
   background-color: #1f2533;
-  border: 1px solid #3a4050;
-  color: rgb(255, 255, 255);
+  border: 1px solid #d9dadc;
+  color: #cbd0d6;
   padding: 10px 15px;
   border-radius: 20px;
   font-size: 16px;
+}
+.white {
+  background-color: #fcfdff;
+  color: #16214f;
 }
 .toggle-container {
   display: grid;
@@ -103,17 +116,17 @@ const switching = () => {
   width: 60px;
 }
 
-.toggle-input {
+.input {
   opacity: 0;
 }
 
-.toggle-label {
+.label {
   position: absolute;
   top: 10px;
   right: 70px;
   width: 35px;
   height: 20px;
-  background-color: #525867;
+  background-color: #545a6a;
   display: block;
   border-radius: 15px;
   cursor: pointer;
@@ -122,8 +135,14 @@ const switching = () => {
 .label-red {
   background-color: #f15c55;
 }
+.label-dark-red {
+  background-color: #cf201d;
+}
+.label-white {
+  background-color: #c6c6c6;
+}
 
-.toggle-handle {
+.handle {
   position: absolute;
   top: 2px;
   left: 2px;
@@ -134,7 +153,7 @@ const switching = () => {
   transition: transform 0.3s;
 }
 
-.toggle-activ {
+.active {
   transform: translateX(15px);
 }
 </style>

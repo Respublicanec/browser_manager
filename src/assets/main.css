@@ -2,15 +2,14 @@
 
 @font-face {
   font-family: "NotoSans";
-  src: url("@/assets/fonts/NotoSans-VariableFont_wdth,wght.ttf")
-    format("truetype");
+  src: url("/fonts/NotoSans-VariableFont_wdth,wght.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "NotoSans";
-  src: url("@/assets/fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf")
+  src: url("/fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf")
     format("truetype");
   font-weight: normal;
   font-style: italic;
@@ -37,4 +36,16 @@ body {
   width: 100%;
   background: linear-gradient(to bottom, #060b1f, #09153d);
   place-items: center;
+}
+
+body {
+  font-family: "NotoSans", sans-serif;
+  font-weight: normal;
+  width: 100%;
+  background: linear-gradient(to bottom, #060b1f, #09153d);
+  place-items: center;
+}
+
+.body-White {
+  background: linear-gradient(to bottom, #ebf2fc, #eefafa);
 }
