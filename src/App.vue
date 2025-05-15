@@ -1,12 +1,14 @@
 <template>
   <div class="header" :class="{ white: !darkTheme }">
     <img class="logo" :src="darkTheme ? logo : logo2" alt="" />
-    <div
-      class="block"
-      :class="{ blockWhite: !darkTheme }"
-      @click="colorTheme()"
-    >
-      <img class="setting-icon" :src="darkTheme ? iconSun : iconMoon" alt="" />
+    <div class="block" :class="{ 'block-white': !darkTheme }" tabindex="0">
+      <img
+        class="setting-icon"
+        :class="{ 'setting-white': !darkTheme }"
+        :src="darkTheme ? iconSun : iconMoon"
+        alt=""
+        @click="colorTheme()"
+      />
     </div>
   </div>
 
@@ -15,9 +17,9 @@
       Extensions List
     </h2>
     <div class="buttons">
-      <button class="button">All</button>
-      <button class="button">Active</button>
-      <button class="button">Inactive</button>
+      <BaseButton title="All" :darkTheme="darkTheme" />
+      <BaseButton title="Active" :darkTheme="darkTheme" />
+      <BaseButton title="Inactive" :darkTheme="darkTheme" />
     </div>
   </div>
 
@@ -34,6 +36,7 @@
 <script setup>
 import { ref } from "vue";
 import Extension from "@/components/Extension.vue";
+import BaseButton from "@/components/BaseButton.vue";
 import logo from "/images/logo.svg";
 import logo2 from "/images/logo2.svg";
 import iconSun from "/images/icon-sun.svg";
@@ -156,24 +159,42 @@ const data = ref([
 .block {
   display: flex;
   align-items: center;
-  background-color: #2f354b;
-  border-radius: 10px;
+  background-color: #1f2535;
+  border: 3px solid transparent;
+  border-radius: 15px;
   justify-self: end;
-  margin-right: 12px;
+  padding: 3px;
+  margin-right: 5px;
 }
-.blockWhite {
-  background-color: #eeeeee;
+.block:focus {
+  border: 3px solid red;
+}
+
+.block-white {
+  background-color: #fcfdff;
 }
 .setting-icon {
-  width: 22px;
-  height: 22px;
-  margin: 12px;
+  background-color: #2f354b;
+  width: 50px;
+  height: 50px;
+  padding: 14px;
+  margin: 1px;
+  border-radius: 10px;
+}
+.setting-icon:hover {
+  background-color: #515868;
+}
+.setting-white {
+  background-color: #f6f5f5;
+}
+.setting-white:hover {
+  background-color: #c2c3c3;
 }
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   color: rgb(247, 247, 247);
-  padding: 58px 0 2px 0;
+  padding: 58px 0 22px 0;
 
   @media (max-width: 650px) {
     text-align: center;
@@ -182,7 +203,7 @@ const data = ref([
   }
 }
 .filter {
-  font-family: "NotoSans", sans-serif; /* Обычный шрифт */
+  font-family: "NotoSans", sans-serif;
   font-weight: bold;
   color: rgb(247, 247, 247);
   font-size: 34px;
@@ -190,22 +211,14 @@ const data = ref([
 .filter-white {
   color: #0b1645;
 }
-.buttons {
+.container .buttons {
   display: flex;
+  padding-top: 6px;
   gap: 10px;
   justify-self: end;
-  margin: 20px;
   @media (max-width: 650px) {
     justify-self: center;
   }
-}
-.button {
-  background-color: #2f354b;
-  padding: 10px 20px;
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  border-radius: 20px;
-  border: none;
 }
 .list-cards {
   display: grid;

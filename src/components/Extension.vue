@@ -1,7 +1,7 @@
 <template>
   <div class="card" :class="{ white: !props.darkTheme }">
     <div class="header">
-      <img class="card-logo" :src="card.logo" alt="Логотип" />
+      <img class="logo" :src="card.logo" alt="Логотип" />
       <div class="text-header">
         <h2 class="name" :class="{ white: !props.darkTheme }">
           {{ card.name }}
@@ -58,7 +58,7 @@ const switching = () => {
 .card {
   display: grid;
   gap: 52px;
-  padding: 12px 10px 12px 20px;
+  padding: 13px 10px 8px 20px;
   border: 1px solid #393e51;
   background-color: #1f2535;
   max-width: 600px;
@@ -83,14 +83,13 @@ const switching = () => {
   position: absolute;
   color: #a9adb8;
 }
-.card-logo {
+.card .logo {
   align-self: start;
   padding-top: 5px;
 }
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 57px;
   padding: 10px 0;
   margin-top: auto;
 }
@@ -107,7 +106,7 @@ const switching = () => {
   background-color: #fcfdff;
   color: #16214f;
 }
-.toggle-container {
+.buttons .toggle-container {
   display: grid;
   margin-left: 100%;
   display: flex;
