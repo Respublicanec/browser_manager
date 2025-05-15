@@ -24,7 +24,7 @@
   <div class="list-cards">
     <Extension
       v-for="card in data"
-      :key="card.id"
+      :key="card.name"
       :card="card"
       :darkTheme="darkTheme"
     />
