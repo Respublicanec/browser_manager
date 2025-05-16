@@ -16,18 +16,21 @@
       </button>
       <div class="toggle-container">
         <input type="checkbox" id="toggle" class="input" />
-        <label
-          for="toggle"
-          @click="switching()"
-          class="label"
-          :class="{
-            'label-red': isActive && props.darkTheme,
-            'label-dark-red': isActive && !props.darkTheme,
-            'label-white': !isActive && !props.darkTheme,
-          }"
-        >
-          <span class="handle" :class="{ active: isActive }"></span>
-        </label>
+        <div class="substrate" tabindex="1">
+          <label
+            for="toggle"
+            @click="switching()"
+            tabindex="1"
+            class="label"
+            :class="{
+              'label-red': isActive && props.darkTheme,
+              'label-dark-red': isActive && !props.darkTheme,
+              'label-white': !isActive && !props.darkTheme,
+            }"
+          >
+            <span class="handle" :class="{ active: isActive }"></span>
+          </label>
+        </div>
       </div>
     </div>
   </div>
@@ -51,6 +54,7 @@ const isActive = ref(props.card.isActive);
 
 const switching = () => {
   isActive.value = !isActive.value;
+  substrate.classList.add("focused");
 };
 </script>
 
@@ -120,9 +124,8 @@ const switching = () => {
 }
 
 .label {
-  position: absolute;
-  top: 10px;
-  right: 70px;
+  position: relative;
+
   width: 35px;
   height: 20px;
   background-color: #545a6a;
@@ -139,6 +142,21 @@ const switching = () => {
 }
 .label-white {
   background-color: #c6c6c6;
+}
+.substrate {
+  position: absolute;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  top: 10px;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  right: 70px;
+  width: 43px;
+  height: 28px;
+}
+.substrate:focus {
+  border: 2px solid red;
 }
 
 .handle {
