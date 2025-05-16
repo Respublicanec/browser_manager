@@ -16,11 +16,10 @@
       </button>
       <div class="toggle-container">
         <input type="checkbox" id="toggle" class="input" />
-        <div class="substrate" tabindex="1">
+        <div class="substrate" tabindex="0">
           <label
             for="toggle"
             @click="switching()"
-            tabindex="1"
             class="label"
             :class="{
               'label-red': isActive && props.darkTheme,
