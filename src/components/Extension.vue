@@ -1,9 +1,9 @@
 <template>
-  <div class="card" :class="{ white: !props.darkTheme }">
+  <div class="card" :class="whiteTeme">
     <div class="header">
       <img class="logo" :src="card.logo" alt="Логотип" />
       <div class="text-header">
-        <h2 class="name" :class="{ white: !props.darkTheme }">
+        <h2 class="name" :class="whiteTeme">
           {{ card.name }}
         </h2>
         <span class="text">{{ card.description }} </span>
@@ -11,24 +11,23 @@
     </div>
 
     <div class="buttons">
-      <button class="remove" :class="{ white: !props.darkTheme }">
-        Remove
-      </button>
+      <button class="remove" :class="whiteTeme">Remove</button>
       <div class="toggle-container">
-        <input type="checkbox" id="toggle" class="input" />
+        <input
+          type="checkbox"
+          :id="card.name"
+          v-model="isActive"
+          class="input"
+        />
         <div class="substrate" tabindex="0">
-          <label
-            for="toggle"
-            @click="switching()"
+          <div
+            :for="card.name"
+            @click="isActive.value = !isActive.value"
             class="label"
-            :class="{
-              'label-red': isActive && props.darkTheme,
-              'label-dark-red': isActive && !props.darkTheme,
-              'label-white': !isActive && !props.darkTheme,
-            }"
+            :class="colorTheme"
           >
             <span class="handle" :class="{ active: isActive }"></span>
-          </label>
+          </div>
         </div>
       </div>
     </div>
@@ -36,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const props = defineProps({
   card: {
@@ -51,10 +50,15 @@ const emit = defineEmits(["click"]);
 
 const isActive = ref(props.card.isActive);
 
-const switching = () => {
-  isActive.value = !isActive.value;
-  substrate.classList.add("focused");
-};
+const whiteTeme = computed(() => ({
+  white: !props.darkTheme,
+}));
+
+const colorTheme = computed(() => ({
+  "label-red": isActive.value && props.darkTheme,
+  "label-dark-red": isActive.value && !props.darkTheme,
+  "label-white": !isActive.value && !props.darkTheme,
+}));
 </script>
 
 <style>
@@ -67,35 +71,42 @@ const switching = () => {
   max-width: 600px;
   border-radius: 20px;
 }
+
 .header {
   display: grid;
   grid-template-columns: 1fr 5fr;
   gap: 15px;
   align-items: center;
 }
+
 .text-header {
   align-self: start;
   position: relative;
   color: rgb(255, 255, 255);
 }
+
 .name {
   font-size: 21px;
 }
+
 .text {
   font-size: 15px;
   position: absolute;
   color: #a9adb8;
 }
+
 .card .logo {
   align-self: start;
   padding-top: 5px;
 }
+
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 10px 0;
   margin-top: auto;
 }
+
 .remove {
   margin-right: auto;
   background-color: #1f2533;
@@ -105,10 +116,12 @@ const switching = () => {
   border-radius: 20px;
   font-size: 16px;
 }
+
 .white {
   background-color: #fcfdff;
   color: #16214f;
 }
+
 .buttons .toggle-container {
   display: grid;
   margin-left: 100%;
@@ -119,12 +132,18 @@ const switching = () => {
 }
 
 .input {
+  position: absolute;
+  right: 73px;
+  top: 8px;
+  width: 38px;
+  height: 35px;
+  z-index: 1;
+  /* display: none; */
   opacity: 0;
 }
 
 .label {
   position: relative;
-
   width: 35px;
   height: 20px;
   background-color: #545a6a;
@@ -133,15 +152,19 @@ const switching = () => {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
 .label-red {
   background-color: #f15c55;
 }
+
 .label-dark-red {
   background-color: #cf201d;
 }
+
 .label-white {
   background-color: #c6c6c6;
 }
+
 .substrate {
   position: absolute;
   display: grid;
@@ -154,6 +177,7 @@ const switching = () => {
   width: 43px;
   height: 28px;
 }
+
 .substrate:focus {
   border: 2px solid red;
 }

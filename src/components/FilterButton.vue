@@ -23,6 +23,7 @@ const props = defineProps({
   border-radius: 50px;
   border: none;
 }
+
 .button-white {
   background-color: #fcfdff;
   color: #000000;
