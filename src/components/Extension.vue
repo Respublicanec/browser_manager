@@ -11,7 +11,13 @@
     </div>
 
     <div class="buttons">
-      <button class="remove" :class="whiteTeme">Remove</button>
+      <button
+        class="remove"
+        :class="{ 'remove-white': !props.darkTheme }"
+        @click="deleteСard()"
+      >
+        Remove
+      </button>
       <div class="toggle-container">
         <input
           type="checkbox"
@@ -46,9 +52,14 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["click"]);
+const emit = defineEmits(["click", "deleteСard"]);
 
 const isActive = ref(props.card.isActive);
+
+const deleteСard = (event) => {
+  const id = props.card.name;
+  emit("deleteСard");
+};
 
 const whiteTeme = computed(() => ({
   white: !props.darkTheme,
@@ -108,6 +119,8 @@ const colorTheme = computed(() => ({
 }
 
 .remove {
+  position: relative;
+  z-index: 1;
   margin-right: auto;
   background-color: #1f2533;
   border: 1px solid #d9dadc;
@@ -115,6 +128,45 @@ const colorTheme = computed(() => ({
   padding: 10px 15px;
   border-radius: 20px;
   font-size: 16px;
+  cursor: pointer;
+}
+.remove:focus:before,
+.remove-white:focus:before {
+  content: "";
+  position: absolute;
+  border: 2px solid #bf1616;
+  border-radius: 24px;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+}
+
+.remove:focus {
+  background-color: #52576a;
+  border: 1px solid transparent;
+}
+
+.remove:hover {
+  color: #000000;
+  background-color: #f45c52;
+  border: 1px solid #021325;
+}
+
+.remove-white {
+  background-color: #fcfdff;
+  color: #16214f;
+}
+
+.remove-white:focus {
+  background-color: #eeeeec;
+  border: 1px solid transparent;
+}
+
+.remove-white:hover {
+  background-color: #c72319;
+  color: #ffffff;
+  border: 1px solid #c72319;
 }
 
 .white {
@@ -138,8 +190,8 @@ const colorTheme = computed(() => ({
   width: 38px;
   height: 35px;
   z-index: 1;
-  /* display: none; */
   opacity: 0;
+  cursor: pointer;
 }
 
 .label {
