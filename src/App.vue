@@ -29,7 +29,7 @@
       :key="card.name"
       :card="card"
       :darkTheme="darkTheme"
-      @deleteСard="deleteСard()"
+      @deleteСard="deleteСard(card)"
     />
   </div>
 </template>
@@ -54,9 +54,9 @@ const colorTheme = () => {
   }
 };
 
-const deleteСard = (name) => {
-  console.log(card.value);
-  data.value = data.value.filter((id) => card.name !== name);
+const deleteCard = (card) => {
+  console.log(card);
+  data.value = data.value.filter((item) => item.name !== card);
 };
 
 const data = ref([
