@@ -17,19 +17,24 @@
       Extensions List
     </h2>
     <div class="buttons">
-      <FilterButton title="All" :darkTheme="darkTheme" />
-      <FilterButton title="Active" :darkTheme="darkTheme" />
-      <FilterButton title="Inactive" :darkTheme="darkTheme" />
+      <FilterButton @click="all()" title="All" :darkTheme="darkTheme" />
+      <FilterButton @click="active()" title="Active" :darkTheme="darkTheme" />
+      <FilterButton
+        @click="inActive()"
+        title="Inactive"
+        :darkTheme="darkTheme"
+      />
     </div>
   </div>
 
   <div class="list-cards">
     <Extension
-      v-for="card in data"
+      v-for="card in filteredData"
       :key="card.name"
       :card="card"
       :darkTheme="darkTheme"
-      @deleteСard="deleteСard(card)"
+      @deleteCard="deleteCard(card)"
+      @toggleActive="toggleActive(card)"
     />
   </div>
 </template>
@@ -45,6 +50,8 @@ import iconMoon from "/images/icon-moon.svg";
 
 const darkTheme = ref(true);
 
+const nameFiltered = ref("all");
+
 const colorTheme = () => {
   darkTheme.value = !darkTheme.value;
   if (darkTheme.value) {
@@ -55,10 +62,24 @@ const colorTheme = () => {
 };
 
 const deleteCard = (card) => {
-  console.log(card);
-  data.value = data.value.filter((item) => item.name !== card);
+  const index = filteredData.value.findIndex((item) => item.name === card.name);
+  filteredData.value.splice(index, 1);
 };
 
+const all = () => {
+  filteredData.value = data.value;
+  nameFiltered.value = "all";
+};
+
+const active = () => {
+  filteredData.value = data.value.filter((item) => item.isActive);
+  nameFiltered.value = "active";
+};
+
+const inActive = () => {
+  filteredData.value = data.value.filter((item) => !item.isActive);
+  nameFiltered.value = "inActive";
+};
 const data = ref([
   {
     logo: "/images/logo-devlens.svg",
@@ -139,6 +160,23 @@ const data = ref([
     isActive: true,
   },
 ]);
+
+const filteredData = ref([...data.value]);
+
+const toggleActive = (card) => {
+  const item = data.value.find((item) => item.name === card.name);
+  item.isActive = !item.isActive;
+
+  if (nameFiltered.value == "all") {
+    all();
+  }
+  if (nameFiltered.value == "active") {
+    active();
+  }
+  if (nameFiltered.value == "inActive") {
+    inActive();
+  }
+};
 </script>
 
 <style scoped>

@@ -14,7 +14,7 @@
       <button
         class="remove"
         :class="{ 'remove-white': !props.darkTheme }"
-        @click="deleteСard()"
+        @click="deleteCard()"
       >
         Remove
       </button>
@@ -23,15 +23,11 @@
           type="checkbox"
           :id="card.name"
           v-model="isActive"
+          @click="toggleActive()"
           class="input"
         />
         <div class="substrate" tabindex="0">
-          <div
-            :for="card.name"
-            @click="isActive.value = !isActive.value"
-            class="label"
-            :class="colorTheme"
-          >
+          <div :for="card.name" class="label" :class="colorTheme">
             <span class="handle" :class="{ active: isActive }"></span>
           </div>
         </div>
@@ -52,13 +48,20 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["click", "deleteСard"]);
+const aaa = (event) => {
+  console.log(event);
+};
+
+const emit = defineEmits(["click", "deleteCard"]);
 
 const isActive = ref(props.card.isActive);
 
-const deleteСard = (event) => {
-  const id = props.card.name;
-  emit("deleteСard");
+const deleteCard = (event) => {
+  emit("deleteCard");
+};
+
+const toggleActive = (event) => {
+  emit("toggleActive");
 };
 
 const whiteTeme = computed(() => ({
