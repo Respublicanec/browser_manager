@@ -17,30 +17,41 @@
       Extensions List
     </h2>
     <div class="buttons">
-      <FilterButton @click="all()" title="All" :darkTheme="darkTheme" />
-      <FilterButton @click="active()" title="Active" :darkTheme="darkTheme" />
       <FilterButton
-        @click="inActive()"
+        @click="activeFilter = 'all'"
+        title="All"
+        :darkTheme="darkTheme"
+        :active="activeFilter === 'all'"
+      />
+      <FilterButton
+        @click="activeFilter = 'active'"
+        title="Active"
+        :darkTheme="darkTheme"
+        :active="activeFilter === 'active'"
+      />
+      <FilterButton
+        @click="activeFilter = 'inActive'"
         title="Inactive"
         :darkTheme="darkTheme"
+        :active="activeFilter === 'inActive'"
       />
     </div>
   </div>
 
   <div class="list-cards">
     <Extension
-      v-for="card in filteredData"
+      v-for="(card, index) in filteredData"
       :key="card.name"
       :card="card"
       :darkTheme="darkTheme"
-      @deleteCard="deleteCard(card)"
+      @deleteExtension="deleteExtension(card)"
       @toggleActive="toggleActive(card)"
     />
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import Extension from "@/components/Extension.vue";
 import FilterButton from "@/components/FilterButton.vue";
 import logoLight from "/images/logo.svg";
@@ -50,7 +61,7 @@ import iconMoon from "/images/icon-moon.svg";
 
 const darkTheme = ref(true);
 
-const nameFiltered = ref("all");
+const activeFilter = ref("all");
 
 const colorTheme = () => {
   darkTheme.value = !darkTheme.value;
@@ -61,25 +72,11 @@ const colorTheme = () => {
   }
 };
 
-const deleteCard = (card) => {
-  const index = filteredData.value.findIndex((item) => item.name === card.name);
-  filteredData.value.splice(index, 1);
+const deleteExtension = (card) => {
+  const index = data.value.findIndex((item) => item.name === card.name);
+  data.value.splice(index, 1);
 };
 
-const all = () => {
-  filteredData.value = data.value;
-  nameFiltered.value = "all";
-};
-
-const active = () => {
-  filteredData.value = data.value.filter((item) => item.isActive);
-  nameFiltered.value = "active";
-};
-
-const inActive = () => {
-  filteredData.value = data.value.filter((item) => !item.isActive);
-  nameFiltered.value = "inActive";
-};
 const data = ref([
   {
     logo: "/images/logo-devlens.svg",
@@ -161,21 +158,22 @@ const data = ref([
   },
 ]);
 
-const filteredData = ref([...data.value]);
+const filteredData = computed(() => {
+  if (activeFilter.value === "all") {
+    return data.value;
+  }
+  if (activeFilter.value === "active") {
+    return data.value.filter((item) => item.isActive);
+  }
+  if (activeFilter.value === "inActive") {
+    return data.value.filter((item) => !item.isActive);
+  }
+  return [];
+});
 
 const toggleActive = (card) => {
   const item = data.value.find((item) => item.name === card.name);
   item.isActive = !item.isActive;
-
-  if (nameFiltered.value == "all") {
-    all();
-  }
-  if (nameFiltered.value == "active") {
-    active();
-  }
-  if (nameFiltered.value == "inActive") {
-    inActive();
-  }
 };
 </script>
 

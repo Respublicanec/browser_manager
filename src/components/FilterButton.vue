@@ -1,9 +1,11 @@
 <template>
-  <button class="button" :class="{ 'button-white': !props.darkTheme }">
+  <button class="button" :class="colorThesme">
     {{ title }}
   </button>
 </template>
 <script setup>
+import { ref, computed } from "vue";
+
 const props = defineProps({
   title: {
     type: String,
@@ -11,7 +13,16 @@ const props = defineProps({
   darkTheme: {
     type: Boolean,
   },
+  active: {
+    type: Boolean,
+  },
 });
+
+const colorThesme = computed(() => ({
+  "button-white": !props.darkTheme && !props.active,
+  "button-red": props.darkTheme && props.active,
+  "button-white-red": !props.darkTheme && props.active,
+}));
 </script>
 <style scoped>
 .button {
@@ -47,8 +58,29 @@ const props = defineProps({
   background-color: #fcfdff;
   color: #000000;
 }
+
 .button-white:hover {
   background-color: #fcfdff;
   color: #828080;
+}
+
+.button-red {
+  background-color: #f35c55;
+  color: #000000;
+}
+
+.button-red:hover {
+  background-color: #dc4941;
+  color: #000000;
+}
+
+.button-white-red {
+  background-color: #dc4941;
+  color: #fcfdff;
+}
+
+.button-white-red:hover {
+  background-color: #f35c55;
+  color: #fcfdff;
 }
 </style>

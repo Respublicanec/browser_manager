@@ -3,9 +3,7 @@
     <div class="header">
       <img class="logo" :src="card.logo" alt="Логотип" />
       <div class="text-header">
-        <h2 class="name" :class="whiteTeme">
-          {{ card.name }}
-        </h2>
+        <h2 class="name" :class="whiteTeme">{{ card.name }}</h2>
         <span class="text">{{ card.description }} </span>
       </div>
     </div>
@@ -14,7 +12,7 @@
       <button
         class="remove"
         :class="{ 'remove-white': !props.darkTheme }"
-        @click="deleteCard()"
+        @click="emit('deleteExtension')"
       >
         Remove
       </button>
@@ -23,10 +21,14 @@
           type="checkbox"
           :id="card.name"
           v-model="isActive"
-          @click="toggleActive()"
+          @click="emit('toggleActive')"
           class="input"
         />
-        <div class="substrate" tabindex="0">
+        <div
+          class="substrate"
+          @click="isActive.value = !isActive.value"
+          tabindex="0"
+        >
           <div :for="card.name" class="label" :class="colorTheme">
             <span class="handle" :class="{ active: isActive }"></span>
           </div>
@@ -48,25 +50,13 @@ const props = defineProps({
   },
 });
 
-const aaa = (event) => {
-  console.log(event);
-};
-
-const emit = defineEmits(["click", "deleteCard"]);
+const emit = defineEmits(["click", "deleteExtension"]);
 
 const isActive = ref(props.card.isActive);
 
-const deleteCard = (event) => {
-  emit("deleteCard");
-};
-
-const toggleActive = (event) => {
-  emit("toggleActive");
-};
-
-const whiteTeme = computed(() => ({
-  white: !props.darkTheme,
-}));
+const whiteTeme = computed(() => {
+  return !props.darkTheme ? "white" : "";
+});
 
 const colorTheme = computed(() => ({
   "label-red": isActive.value && props.darkTheme,
