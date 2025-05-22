@@ -18,19 +18,19 @@
     </h2>
     <div class="buttons">
       <FilterButton
-        @click="activeFilter = 'all'"
+        @click="getFilterAll()"
         title="All"
         :darkTheme="darkTheme"
         :active="activeFilter === 'all'"
       />
       <FilterButton
-        @click="activeFilter = 'active'"
+        @click="getFilterActive()"
         title="Active"
         :darkTheme="darkTheme"
         :active="activeFilter === 'active'"
       />
       <FilterButton
-        @click="activeFilter = 'inActive'"
+        @click="getFilterInActive()"
         title="Inactive"
         :darkTheme="darkTheme"
         :active="activeFilter === 'inActive'"
@@ -158,7 +158,22 @@ const data = ref([
   },
 ]);
 
-const filteredData = computed(() => {
+const getFilterAll = () => {
+  activeFilter.value = "all";
+  filteredData.value = getFilteredData();
+};
+
+const getFilterActive = () => {
+  activeFilter.value = "active";
+  filteredData.value = getFilteredData();
+};
+
+const getFilterInActive = () => {
+  activeFilter.value = "inActive";
+  filteredData.value = getFilteredData();
+};
+
+const getFilteredData = () => {
   if (activeFilter.value === "all") {
     return data.value;
   }
@@ -169,7 +184,9 @@ const filteredData = computed(() => {
     return data.value.filter((item) => !item.isActive);
   }
   return [];
-});
+};
+
+const filteredData = ref(getFilteredData());
 
 const toggleActive = (card) => {
   const item = data.value.find((item) => item.name === card.name);
