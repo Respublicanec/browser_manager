@@ -40,7 +40,7 @@
 
   <div class="list-cards">
     <Extension
-      v-for="(card, index) in filteredData"
+      v-for="card in filteredData"
       :key="card.name"
       :card="card"
       :darkTheme="darkTheme"
