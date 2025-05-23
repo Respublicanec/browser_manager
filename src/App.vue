@@ -18,19 +18,19 @@
     </h2>
     <div class="buttons">
       <FilterButton
-        @click="getFilterAll()"
+        @click="activeFilter = 'all'"
         title="All"
         :darkTheme="darkTheme"
         :active="activeFilter === 'all'"
       />
       <FilterButton
-        @click="getFilterActive()"
+        @click="activeFilter = 'active'"
         title="Active"
         :darkTheme="darkTheme"
         :active="activeFilter === 'active'"
       />
       <FilterButton
-        @click="getFilterInActive()"
+        @click="activeFilter = 'inActive'"
         title="Inactive"
         :darkTheme="darkTheme"
         :active="activeFilter === 'inActive'"
@@ -44,7 +44,7 @@
       :key="card.name"
       :card="card"
       :darkTheme="darkTheme"
-      @deleteExtension="deleteExtension(card)"
+      @deleteExtension="deleteExtension(index)"
       @toggleActive="toggleActive(card)"
     />
   </div>
@@ -72,9 +72,10 @@ const colorTheme = () => {
   }
 };
 
-const deleteExtension = (card) => {
+const deleteExtension = (i) => {
+  console.log(i);
   const index = data.value.findIndex((item) => item.name === card.name);
-  data.value.splice(index, 1);
+  filteredData.value.splice(index, 1);
 };
 
 const data = ref([
@@ -158,22 +159,7 @@ const data = ref([
   },
 ]);
 
-const getFilterAll = () => {
-  activeFilter.value = "all";
-  filteredData.value = getFilteredData();
-};
-
-const getFilterActive = () => {
-  activeFilter.value = "active";
-  filteredData.value = getFilteredData();
-};
-
-const getFilterInActive = () => {
-  activeFilter.value = "inActive";
-  filteredData.value = getFilteredData();
-};
-
-const getFilteredData = () => {
+const filteredData = computed(() => {
   if (activeFilter.value === "all") {
     return data.value;
   }
@@ -184,9 +170,7 @@ const getFilteredData = () => {
     return data.value.filter((item) => !item.isActive);
   }
   return [];
-};
-
-const filteredData = ref(getFilteredData());
+});
 
 const toggleActive = (card) => {
   const item = data.value.find((item) => item.name === card.name);
