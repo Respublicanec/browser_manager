@@ -44,7 +44,7 @@
       :key="card.name"
       :card="card"
       :darkTheme="darkTheme"
-      @deleteExtension="deleteExtension(index)"
+      @deleteExtension="deleteExtension(card)"
       @toggleActive="toggleActive(card)"
     />
   </div>
@@ -72,10 +72,9 @@ const colorTheme = () => {
   }
 };
 
-const deleteExtension = (i) => {
-  console.log(i);
+const deleteExtension = (card) => {
   const index = data.value.findIndex((item) => item.name === card.name);
-  filteredData.value.splice(index, 1);
+  data.value.splice(index, 1);
 };
 
 const data = ref([
